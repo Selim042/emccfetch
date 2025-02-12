@@ -69,6 +69,8 @@ if (turtle ~= nil) then
     systemType = systemType..' Turtle'
 elseif (pocket ~= nil) then
     systemType = systemType..' Pocket'
+elseif (peipheral.getType('back') == 'neuralInterface') then
+    systemType = 'Neural Interface'
 else
     systemType = systemType..' Computer'
 end
