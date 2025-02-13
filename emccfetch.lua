@@ -108,7 +108,6 @@ for k,v in pairs({peripheral.find('monitor')}) do
     displays[#displays+1] = v
 end
 for k,v in pairs(displays) do
-    print(v)
     local dispX,dispY = v.getSize()
     local displayName
     if (k == 1) then
