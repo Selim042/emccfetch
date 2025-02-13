@@ -4,6 +4,7 @@ local theme = {
 }
 local x,y = term.getSize()
 
+-- CraftOS Logo
 local logo = {
     {
         chars = "        ",
@@ -49,6 +50,7 @@ local logo = {
 
 local info = {}
 
+-- Basic Header
 local label = os.getComputerLabel() or 'Unlabeled'
 info[#info+1] = {label=label}
 local labelPadding = ''
@@ -58,6 +60,7 @@ end
 info[#info+1] = {info=labelPadding}
 info[#info+1] = {label="OS",info=os.version()}
 
+-- Determine if advanced PC
 local systemType = ""
 if (command ~= nil) then
     systemType = "Command"
@@ -65,6 +68,7 @@ elseif (paintutils ~= nil) then
     systemType = "Advanced"
 end
 
+-- Determine type of PC
 if (turtle ~= nil) then
     systemType = systemType..' Turtle'
 elseif (pocket ~= nil) then
@@ -79,6 +83,7 @@ info[#info+1] = {label='System',info=systemType}
 info[#info+1] = {label='Host',info=_G._HOST}
 info[#info+1] = {label='Lua',info=_G._VERSION}
 
+-- Render uptime nicely
 local function getUptime(uptime)
     uptime = math.floor(uptime)
     if (uptime < 60) then
@@ -97,52 +102,53 @@ local function getUptime(uptime)
 end
 info[#info+1] = {label='Uptime',info=getUptime(os.clock())}
 
-local displays = {term}
+-- Get all display resolutions
+local displays = {term.native()}
 for k,v in pairs({peripheral.find('monitor')}) do
-    displays[#displays] = v
+    displays[#displays+1] = v
 end
 for k,v in pairs(displays) do
-    local x,y = v.getSize()
+    print(v)
+    local dispX,dispY = v.getSize()
     local displayName
     if (k == 1) then
         displayName = 'term'
     else
         displayName = peripheral.getName(v)
     end
-    info[#info+1] = {label='Display ('..displayName..')',info=x..'x'..y..' @ 20tps'}
+    info[#info+1] = {label='Display ('..displayName..')',info=dispX..'x'..dispY..' @ 20tps'}
 end
--- info[#info+1] = {label='Display',info=x..'x'..y..' @ 20tps'}
 
+local function formatSize(size)
+    local kb = size / 1000
+    local mb = kb / 1000
+    local gb = mb / 1000
+    local tb = gb / 1000
+    local pb = tb / 1000
+    if (pb > 10) then
+        return string.format('%.2f',pb).."PB"
+    end
+    if (tb > 10) then
+        return string.format('%.2f',tb).."TB"
+    end
+    if (gb > 10) then
+        return string.format('%.2f',gb).."GB"
+    end
+    if (mb > 10) then
+        return string.format('%.2f',mb).."MB"
+    end
+    if (kb > 10) then
+        return string.format('%.2f',kb).."KB"
+    end
+    return string.format('%.2f',size).."B"
+end
+
+-- Get all drive usage
 local disks = {'/','/rom'}
 local drives = {peripheral.find('drive')}
 for k,v in pairs(drives) do
     disks[#disks+1] = v.getMountPath()
 end
-
-local function formatSize(size)
-    local kb = size / 1024
-    local mb = kb / 1024
-    local gb = mb / 1024
-    local tb = gb / 1024
-    local pb = tb / 1024
-    if (pb > 10) then
-        return pb.."PB"
-    end
-    if (tb > 10) then
-        return tb.."TB"
-    end
-    if (gb > 10) then
-        return gb.."GB"
-    end
-    if (mb > 10) then
-        return mb.."MB"
-    end
-    if (kb > 10) then
-        return kb.."KB"
-    end
-    return size.."B"
-end
-
 for k,v in pairs(disks) do
     local free = fs.getFreeSpace(v) or 0
     local capacity = fs.getCapacity(v) or 0
@@ -153,7 +159,7 @@ for k,v in pairs(disks) do
     else
         perc = used/capacity*100
     end
-    info[#info+1] = {label='Disk ('..v..')',info=formatSize(used)..' / '..formatSize(capacity)..' ('..perc..'%)'}
+    info[#info+1] = {label='Disk ('..v..')',info=formatSize(used)..' / '..formatSize(capacity)..' ('..string.format('%.2f',perc)..'%)'}
 end
 
 info[#info+1] = {label='Computer ID',info=tostring(os.getComputerID())}
