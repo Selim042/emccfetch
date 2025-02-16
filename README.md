@@ -1,7 +1,7 @@
 # emccfetch
 
 Install with:
-`pastebin fun w8dPRNHR`
+`pastebin run w8dPRNHR`
 
 ## Todo
 - [ ] Preset themes (pride flags)
