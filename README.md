@@ -4,7 +4,7 @@ Install with:
 `pastebin run w8dPRNHR`
 
 ## Todo
-- [ ] Preset themes (pride flags)
+- [X] Preset themes (pride flags)
 - [ ] More OS support
 - [X] Extensions for more info
   - [ ] Error handling for extensions
