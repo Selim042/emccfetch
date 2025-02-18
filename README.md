@@ -1,7 +1,9 @@
 # emccfetch
 
 Install with:
-`pastebin run w8dPRNHR`
+```lua
+wget run https://raw.githubusercontent.com/Selim042/emccfetch/refs/heads/main/emccfetch-installer.lua
+```
 
 ## Todo
 - [X] Preset themes (pride flags)
