@@ -1,4 +1,23 @@
+local VERSION = '1.0.0'
 local emccfetch = require('emccfetch-lib')
+
+local args = {...}
+if (#args ~= 0) then
+    local lowerArg = string.lower(args[1])
+    if (lowerArg == 'version') then
+        print('EM-CC Fetch version: '..VERSION)
+        print('EM-CC Fetch-Lib version: '..emccfetch.LIB_VERSION)
+        return
+    elseif (lowerArg == 'update') then
+        print('Not yet implemented...')
+    else
+        print('EM-CC Fetch Help: (v '..VERSION..')')
+        print(' emccfetch help - Displays this menu')
+        print(' emccfetch version - Displays the current version')
+        print(' emccfetch update - Updates the script')
+    end
+    return
+end
 
 emccfetch.addExtension({
   name = 'emccfetch:systemInfo',

@@ -8,6 +8,9 @@ wget run https://raw.githubusercontent.com/Selim042/emccfetch/refs/heads/main/em
 ## Todo
 - [X] Preset themes (pride flags)
 - [ ] More OS support
+- [ ] Add updater
+  - [ ] Check if out of date
+- [ ] Merge the two scripts, while allowing disabling default extensions
 - [X] Extensions for more info
   - [ ] Error handling for extensions
 

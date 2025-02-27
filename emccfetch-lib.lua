@@ -1,8 +1,11 @@
+local api = {}
+api.LIB_VERSION = '1.0.0'
+
 local OPTION_KEYS = {
     THEME = 'emccfetch.theme'
 }
 local themes = {
-    logo = nil,
+    logo = true,
     pride_horz = {
         'eeeeeeee',
         'eeeeeeee',
@@ -140,7 +143,6 @@ local function writeLogoLine(line)
     end
 end
 
-local api = {}
 local extensions = {}
 api.addExtension = function(ext)
     extensions[#extensions+1] = ext
